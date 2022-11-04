@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { MemoryRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Configure from "./components/Configure";
+import Graph from "./components/Graph";
+import "./App.css";
 
 function App() {
+  const [port, setPort] = React.useState("");
+
+  const changePort = (e) => {
+    setPort(e.target.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route
+          path="/"
+          element={<Configure port={port} handleChange={changePort} />}
+        />
+        <Route path="/data" element={<Graph />} />
+      </Routes>
+    </Router>
   );
 }
 
